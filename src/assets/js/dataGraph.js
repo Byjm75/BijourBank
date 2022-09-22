@@ -12,7 +12,7 @@ const data = {
       label: "Compte",
       data: datapoints,
       borderColor: "purple",
-      //   fill: true,
+      fill: true,
       cubicInterpolationMode: "monotone",
     },
   ],
@@ -32,10 +32,10 @@ const config = {
     responsive: true,
     plugins: {
       legend: false,
-      //   title: {
-      //     display: true,
-      //     text: "Chart.js Line Chart - Cubic interpolation mode",
-      //   },
+      title: {
+      display: true,
+      text: "Courbe de vos opérations",
+      },
     },
     interaction: {
       intersect: false,
@@ -72,3 +72,4 @@ function addTemperature(time, temperature) {
   /* Rafraichir le graphique */
   chart.update();
 }
+
