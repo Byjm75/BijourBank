@@ -1,20 +1,20 @@
 // <block:setup:1>
 const datapoints = [1200, 750, 775, 760, 2560];
-const DATA_COUNT = datapoints.length + 2;
+const DATA_COUNT = datapoints.length;
 const labels = [];
-for (let i = 0; i < DATA_COUNT; ++i) {
+for (let i = 1; i < DATA_COUNT + 1; ++i) {
   labels.push(i.toString());
 }
 const data = {
   labels: labels,
   datasets: [
     {
-      label: "Compte",
+      label: "Solde",
       data: datapoints,
       borderColor: "purple",
-      fill: true,
+      fill: false,
       cubicInterpolationMode: "monotone",
-    },
+    }
   ],
 };
 // </block:setup>
@@ -33,8 +33,8 @@ const config = {
     plugins: {
       legend: false,
       title: {
-      display: true,
-      text: "Courbe de vos opérations",
+        display: false,
+        text: "Courbe de vos opérations",
       },
     },
     interaction: {
@@ -52,24 +52,34 @@ const config = {
 };
 
 /*Le contexte du canevas HTML */
-context = document.getElementById("myChart").getContext("2d");
+const context = document.getElementById("myChart").getContext("2d"); // ajout du const
 /* Création du graphique */
-chart = new Chart(context, config);
+const chart = new Chart(context, config); // ajout du const
 
 /* Générer des données aléatoires */
 function generateData() {
-  randomTemperature = (Math.random() * Math.floor(50)).toFixed(2); // Deux chiffres après la virgule
-  addTemperature(new Date().toLocaleTimeString(), randomTemperature);
+  let randomSold = (Math.random() * Math.floor(3000)).toFixed(2); // Deux chiffres après la virgule
+  let lastDataLabel = data.labels[data.labels.length - 1];
+  let operationNumber = (parseInt(lastDataLabel) + 1).toString();
+  addOperation(operationNumber, randomSold);
 }
 
-function addTemperature(time, temperature) {
+function addOperation(operationNumber, newSold) {
   /* Ajoute la valeur en X */
-  config.data.labels.push(time);
+  config.data.labels.push(operationNumber);
+  console.log(data.labels)
+  /* Ajoute le numéro de l'opération
 
   /* Ajoute la valeur */
-  config.data.datasets[0].data.push(temperature);
+  config.data.datasets[0].data.push(newSold);
+  /* Ajoute le nouveau solde dans le tableau */
 
   /* Rafraichir le graphique */
   chart.update();
 }
+
+generateData();
+generateData();
+generateData();
+generateData();
 
